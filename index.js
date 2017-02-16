@@ -31,7 +31,7 @@ db.Student.create({
   lastName : "Irawan",
   birthDate: "1991-12-02",
   Height:150,
-  Phone : "123456789012",
+  Phone : "12345678901234534345",
   Email:"rafa@email.com"
 }).then(function(data) {
   console.log(data);
