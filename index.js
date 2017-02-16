@@ -1,27 +1,28 @@
 "use strict"
 let  model = require('./models');
 
-model.Student.create({firstname:'bala',lastname:'bala', birthdate:'1992-04-12',email :'acot@gmail.com',height:151,phonenumber:'081239283192'}).
-then(function(){
-  console.log('data inserted');
-}).catch(function(err){
-  console.log('tinggi kurang/ email tidak sesuai / email sudah terdaftar / nomor hp kurang');
-})
-;
-//
-// model.Student.findOne({
-//   where : {firstname:'hepiska'}
-// }).then(function(hasil){
-//   console.log(hasil.getFullName());
-// })
+function insertdata(firstName,lastName,birthDate,Email,Height,phoneNumber){
+  model.Student.create({firstname:firstName,lastname:lastName, birthdate:birthDate,email :Email,height:Height,phonenumber:phoneNumber}).
+  then(function(){
+    console.log('data inserted');
+  }).catch(function(err){
+    console.log('tinggi kurang/ email tidak sesuai / email sudah terdaftar / nomor hp kurang');
+  });
+}
 
-// model.Student.getAllData(function(callback){
-//   //console.log(callback);
-//   callback.forEach(function(hasil){
-//     console.log(hasil);
-//   })
-// });
-//
-// model.Student.getAgeData(function(result){
-//   console.log(result);
-// })
+function getalldata(){
+  model.Student.getAllData(function(callback){
+    callback.forEach(function(hasil){
+      console.log(hasil);
+    })
+  });
+}
+
+function getage(){
+  model.Student.getAgeData(function(result){
+    console.log(result);
+  })
+}
+
+//getage();
+getalldata()
