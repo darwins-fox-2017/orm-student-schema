@@ -2,6 +2,7 @@
 
 let Model = require ('./models')
 
+<<<<<<< HEAD
 // Access from instanceMethods
 Model.Student.findAll().then(function(students) {
   console.log();
@@ -26,8 +27,8 @@ Model.Student.getAllData(function(students) {
 })
 
 // Seed Data
-Model.Student.create({firstname : 'Tukul', lastname : 'Arwana', birthdate : new Date(), email : 'tukularwanam', phone : '08126665664', height : 170 }).then(function(data){
-  console.log(`Insert Data Success!!!`);
-}).catch(function(err){
-  console.log(err);
-})
+// Model.Student.create({firstname : 'Tukul', lastname : 'Arwana', birthdate : new Date(), email : 'tukularwanam', phone : '08126665664', height : 170 }).then(function(data){
+//   console.log(`Insert Data Success!!!`);
+// }).catch(function(err){
+//   console.log(err);
+// })
