@@ -6,11 +6,14 @@ module.exports = function(sequelize, DataTypes) {
     birthdate: DataTypes.DATE
   }, {
     classMethods: {
+      // getFullName: function(firstName, lastName) {
+      //   return `Nama lengkap kamu adalah : ${firstName} ${lastName}`
+      // }
       associate: function(models) {
         // associations can be defined here
       },
-      getAllData: function(models) {
-        return `${this.first_name}`
+      getAllData: function(where) {
+        // Student.findAll({where:where}).then(function)
       },
 
     },
@@ -19,8 +22,9 @@ module.exports = function(sequelize, DataTypes) {
         return `${this.first_name} ${this.last_name}`
       },
       getAge : function() {
-        let tampung = 
-        return `${this.birthdate}`
+        let tahun = this.birthdate.getFullYear()//toString().split(" ").splice(3, 1)
+        let tampung = new Date().getFullYear()
+        return tampung - tahun + " Tahun "
       }
     }
 
