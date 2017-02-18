@@ -2,7 +2,6 @@
 
 let Model = require ('./models')
 
-<<<<<<< HEAD
 // Access from instanceMethods
 Model.Student.findAll().then(function(students) {
   console.log();
