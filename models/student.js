@@ -4,7 +4,6 @@ module.exports = function(sequelize, DataTypes) {
     firstname: DataTypes.STRING,
     lastname: DataTypes.STRING,
     birthdate: DataTypes.DATE,
-<<<<<<< HEAD
     email: {
       type: DataTypes.STRING,
       validate: {
@@ -49,14 +48,6 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
       },
-=======
-    status: DataTypes.STRING,
-    height: DataTypes.STRING,
-    phone: DataTypes.STRING
-
-  }, {
-    classMethods: {
->>>>>>> 5c5180b068cea8b37a7948b35444aa8b2a29b7d3
       getAllData: function(result) {
         let newArr = []
         Student.findAll().then(function(students) {
@@ -65,14 +56,10 @@ module.exports = function(sequelize, DataTypes) {
             obj['id'] = student.id
             obj['firstname'] = student.firstname
             obj['lastname'] = student.lastname
-<<<<<<< HEAD
             obj['birthdate'] = student.birthdate
             obj['fullname'] = student.getFullName()
             obj['createdAt'] = student.createdAt
             obj['updatedAt'] = student.updatedAt
-=======
-            obj['fullname'] = student.getFullName()
->>>>>>> 5c5180b068cea8b37a7948b35444aa8b2a29b7d3
             newArr.push(obj)
           })
           result(newArr)
@@ -80,19 +67,11 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     instanceMethods: {
-<<<<<<< HEAD
       getFullName : function () {
         return `${this.firstname} ${this.lastname}`
       },
       getAge : function() {
         return this.birthdate.getFullYear()-1990
-=======
-      getFullName: function() {
-        return this.firstname + this.lastname
-      },
-      getAge: function() {
-        return this.birthdate
->>>>>>> 5c5180b068cea8b37a7948b35444aa8b2a29b7d3
       }
     }
   });
