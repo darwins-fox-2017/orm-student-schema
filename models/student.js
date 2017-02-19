@@ -3,7 +3,39 @@ module.exports = function(sequelize, DataTypes) {
   var Student = sequelize.define('Student', {
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
-    birthdate: DataTypes.DATE
+    birthdate: DataTypes.DATE,
+    email: {
+      type:DataTypes.STRING,
+      validate:{
+        isEmail: true,
+        isunique: function(value, next) {
+          Student.find({
+            where: {
+              email : value
+            },
+            attributes : ['id']
+          }).then(function(data) {
+            if(data) {
+              return next("Email sudah ada !")
+            }
+            next();
+          })
+        }
+      }
+    },
+    tinggi : {
+      type : DataTypes.INTEGER,
+      validate : {min : 150, isNumeric:true}
+    },
+    phone : {
+      type : DataTypes.STRING,
+      validate : {
+        len : [10, 13],
+        isAlphanumeric : true,
+        isNumeric : true,
+        //isAlpha: false
+      }
+    }
   }, {
     classMethods: {
       // getFullName: function(firstName, lastName) {
@@ -12,8 +44,10 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
       },
-      getAllData: function(where) {
-        // Student.findAll({where:where}).then(function)
+      getAllData: function(student_data) {
+        Student.findAll().then(function(data) {
+          student_data(data)
+        })
       },
 
     },
