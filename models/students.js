@@ -3,7 +3,38 @@ module.exports = function(sequelize, DataTypes) {
     var Students = sequelize.define('Students', {
         firstname: DataTypes.STRING,
         lastname: DataTypes.STRING,
-        birthdate: DataTypes.DATE
+        birthdate: DataTypes.DATE,
+        email: {
+            type: DataTypes.STRING,
+            validate: {
+                isEmail: true,
+                isuniq: function(value, next) {
+                                    Students.find({
+                                        where: {
+                                            email: value
+                                        }
+                                    }).then(function(user) {
+                                        if (user) {
+                                            next('already taken')
+                                        } else {
+                                            next()
+                                        }
+                                    })
+                }
+            }
+        },
+        height: {
+            type: DataTypes.INTEGER,
+            validate: {
+                min: 150
+            }
+        },
+        phonenumber: {
+            type: DataTypes.STRING,
+            validate: {
+                len: [8, 13]
+            }
+        }
     }, {
         classMethods: {
             associate: function(models) {
@@ -17,7 +48,7 @@ module.exports = function(sequelize, DataTypes) {
                         result['firstname'] = res.firstname;
                         result['lastname'] = res.lastname;
                         result['birthdate'] = res.birthdate;
-                        // result['fullname'] = res.getFullName();
+                        result['fullname'] = res.getFullName();
                         result.push(result);
                     })
                     callback(result);
@@ -39,7 +70,6 @@ module.exports = function(sequelize, DataTypes) {
         },
         instanceMethods: {
             getFullName: function() {
-
                 return `${this.firstname} ${this.lastname} `
             },
 
