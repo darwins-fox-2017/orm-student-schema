@@ -11,22 +11,21 @@ module.exports = function(sequelize, DataTypes) {
             },
             getAllData: function(callback) {
                 var result = []
-                Student.findAll().then(function(hasil) {
-                    hasil.forEach(function(output) {
-                        let hasil = {};
-                        hasil['firstname'] = output.firstname;
-                        hasil['lastname'] = output.lastname;
-                        hasil['birthdate'] = output.birthdate;
-                        hasil['fullname'] = output.getFullName();
-                        result.push(hasil);
-                        //console.log(output);
+                Students.findAll().then(function(data) {
+                    data.forEach(function(res) {
+                        let result = {};
+                        result['firstname'] = res.firstname;
+                        result['lastname'] = res.lastname;
+                        result['birthdate'] = res.birthdate;
+                        // result['fullname'] = res.getFullName();
+                        result.push(result);
                     })
                     callback(result);
                 })
             },
-            getAgeData: function(callback) {
+            getAgeFromData: function(callback) {
                 var result = [];
-                Student.findAll().then(function(currentData) {
+                Students.findAll().then(function(currentData) {
                     currentData.forEach(function(item) {
                         let newdata = {}
                         newdata['name'] = item.getFullName();
@@ -37,6 +36,18 @@ module.exports = function(sequelize, DataTypes) {
                 })
 
             }
+        },
+        instanceMethods: {
+            getFullName: function() {
+
+                return `${this.firstname} ${this.lastname} `
+            },
+
+            getAge: function() {
+                let now = new Date();
+                return (now.getFullYear() - this.birthdate.getFullYear());
+            }
+
         }
     });
     return Students;
