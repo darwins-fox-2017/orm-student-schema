@@ -2,10 +2,10 @@
 
 let db = require("./models")
 // db.Students.create({
-//   firstname: "Galis",
-//   lastname: "Braxx",
+//   firstname: "fwef",
+//   lastname: "lerjgmerg",
 //   birthdate: "1996-11-24",
-//   email: "snmljnfwekjfg@gmail.com",
+//   email: "rtyuikl@gmail.com",
 //   height: 170,
 //   Phone: "0812146692919"
 // }).then(function(data) {
