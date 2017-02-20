@@ -9,7 +9,6 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         min : 150,
         isNumeric : true
-
       }
     },
     email: {
@@ -18,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         isEmail : {msg: 'email format must be valid'},
         // unique : true
         isUnique : function(item,next){
+          console.log(next);
           Student.find({
             where: {email : item},
             attributes : ["id"]
@@ -35,11 +35,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       validate: {
         len : {
-          arg: [10-13],
+          args: [10,13],
           msg: 'Phone length must be 10-13'
         },
         isAlphanumeric: {
-          arg: false,
+          args: false,
           msg: 'Phone not allow alphanumeric'
         },
         not: {
