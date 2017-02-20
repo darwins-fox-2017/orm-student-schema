@@ -6,11 +6,21 @@ module.exports = function(sequelize, DataTypes) {
     birthdate: DataTypes.DATE,
     email: {
       type: DataTypes.STRING,
+      // unique:true,
       validate: {
         isEmail:true,
-        isUnique: function(value, callback) {
+        isUnique: function(value, next) {
           Student.find({
-            where: value === email
+            where: {email:value},
+            attributes: ['id']
+          }).then(function(data, error) {
+            if (error) {
+              return next(error)
+            }
+            if (data) {
+              return next('Email is already used')
+            }
+            next()
           })
         }
       }
@@ -21,7 +31,14 @@ module.exports = function(sequelize, DataTypes) {
         min:150
       }
     },
-    phone: DataTypes.STRING
+    phone: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [10,13],
+        isAlphanumeric: true,
+        isNumeric: true
+      }
+    }
     // createdAt: DataTypes.DATE,
     // updatedAt: DataTypes.DATE
   }, {
@@ -43,8 +60,8 @@ module.exports = function(sequelize, DataTypes) {
       },
       getAge: function() {
         let birthdate   = this.birthdate.getFullYear()
-        let currentYear = new Date()
-        return currentYear.getFullYear() - birthdate
+        let currentYear = new Date().getFullYear()
+        return currentYear - birthdate
       }
 
     }
