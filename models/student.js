@@ -1,17 +1,34 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Student = sequelize.define('Student', {
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    birthday: DataTypes.DATE,
-    email : {
-      type: DataTypes.STRING,
-      validate: {
-        isEmail: {
-          msg: 'Format email salah' 
+      first_name: DataTypes.STRING,
+      last_name: DataTypes.STRING,
+      gender: DataTypes.STRING,
+      birthday: DataTypes.DATE,
+      email : {
+        type: DataTypes.STRING,
+        validate: {
+          isEmail: {
+            msg: 'Format email salah'
+          },
+          isUnique: function (value) {
+            return new Promise(function(res, rej) {
+              Student.findOne({ where: { email: value }})
+              .then(function (user) {
+                  if (user) {
+                    throw new Error('email already registered');
+                    res()
+                  }
+              })
+              .catch(function(err) {
+                rej(err)
+              })
+            })
+
+          }
+
+
         }
-      }
     },
     height: {
           type: DataTypes.INTEGER,
