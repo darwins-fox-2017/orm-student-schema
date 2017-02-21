@@ -14,37 +14,33 @@ module.exports = {
       }], {});
     */
     
-    let updateName = function(id, fullname) {
-      console.log(fullname);
-      return new Promise(function(resolve, reject) {
-      });
-    }
     
     let assignFullname = function(students) {
       return new Promise(function(resolve, reject) {
         students.forEach(function(student) {
-          // console.log(student);
           let id = student.id
           let fullname = student.getFullName()
-          // console.log(fullname);
-          // resolve(id,fullname)
           models.Student.update({
-            name: 'Tes'
+            name: fullname
           },{
             where: {
               id: id
             }
           })
+          .catch(function(err) {
+            reject(err)
+          })
         })
       });
+    }
+
+    let updatedData = function(data) {
+      console.log(`${data} records has been updated`)
     }
     
     return models.Student.findAll()
     .then(assignFullname)
-    // .then(updateName)
-    // .then(function(success) {
-    //   console.log(success)
-    // })
+    .then(updatedData)
     
   },
 

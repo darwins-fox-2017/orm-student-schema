@@ -38,7 +38,8 @@ module.exports = function(sequelize, DataTypes) {
         isAlphanumeric: true,
         isNumeric: true
       }
-    }
+    },
+    name: DataTypes.STRING
     // createdAt: DataTypes.DATE,
     // updatedAt: DataTypes.DATE
   }, {
